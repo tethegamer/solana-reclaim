@@ -1,0 +1,9 @@
+services:
+  solana-reclaim:
+    build: .
+    ports:
+      - "43123:43123"
+    environment:
+      PORT: "43123"
+      HOST: "0.0.0.0"
+      SOLANA_RPC_URL: ${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}

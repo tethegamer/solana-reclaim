@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: solana-reclaim
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: SOLANA_RPC_URL
+        sync: false

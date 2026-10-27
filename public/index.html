@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>solana-reclaim — rent, dust, and token radar</title>
+  <meta name="description" content="Read-only Solana wallet rent scanner, 0% fee unsigned close builder, and Token-2022 safety radar.">
+  <meta name="theme-color" content="#090b10">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="#scan">
+      <svg viewBox="0 0 32 32" class="mark" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="29" height="29" rx="8"></rect>
+        <path d="M7 21c4.2-9 13.2-9 18 0"></path>
+        <circle cx="16" cy="15" r="2.1"></circle>
+      </svg>
+      <span>
+        <strong>solana-reclaim</strong>
+        <em>0% protocol fee</em>
+      </span>
+    </a>
+    <div class="tabs" role="tablist" aria-label="Tools">
+      <button type="button" class="tab" id="tab-scan" role="tab" aria-selected="true" aria-controls="panel-scan">Wallet scanner</button>
+      <button type="button" class="tab" id="tab-radar" role="tab" aria-selected="false" aria-controls="panel-radar" tabindex="-1">Token radar</button>
+    </div>
+    <p class="status" id="api-status">Connecting…</p>
+  </header>
+
+  <main>
+    <section id="panel-scan" role="tabpanel" aria-labelledby="tab-scan">
+      <div class="intro">
+        <p class="kicker">Read-only mainnet scan</p>
+        <h1>Get the rent back.</h1>
+        <p class="lede">Empty SPL and Token-2022 accounts lock about <span class="num">0.00203928 SOL</span> each. Paste any wallet — nothing is signed — and build a close transaction that pays you the rent and this tool nothing.</p>
+      </div>
+      <form id="scan-form" class="query">
+        <label for="wallet-input">Wallet address</label>
+        <div class="query-row">
+          <input id="wallet-input" name="wallet" autocomplete="off" spellcheck="false" placeholder="Wallet, or several separated by commas" required>
+          <button type="submit" class="primary" id="scan-button">Scan</button>
+        </div>
+        <div class="chips" id="wallet-chips">
+          <button type="button" class="chip" data-wallet="8RrMaJXYwANd4zEskfPQuSYE35dTzaYtuwyKz3ewcZQx">Reference · 8RrM…cZQx</button>
+        </div>
+      </form>
+      <p class="form-note" id="scan-status" role="status"></p>
+      <div id="scan-output"></div>
+    </section>
+
+    <section id="panel-radar" role="tabpanel" aria-labelledby="tab-radar" hidden>
+      <div class="intro">
+        <p class="kicker">Token-2022 and holder radar</p>
+        <h1>Read the mint before you buy.</h1>
+        <p class="lede">Mint authority, freeze authority, permanent delegates, transfer hooks, fees, and how much of the supply sits with a few wallets. No wallet connection.</p>
+      </div>
+      <form id="audit-form" class="query">
+        <label for="mint-input">Mint address</label>
+        <div class="query-row">
+          <input id="mint-input" name="mint" autocomplete="off" spellcheck="false" placeholder="Token mint" required>
+          <button type="submit" class="primary" id="audit-button">Audit</button>
+        </div>
+        <div class="chips">
+          <button type="button" class="chip" data-mint="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v">USDC</button>
+          <button type="button" class="chip" data-mint="DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263">BONK</button>
+          <button type="button" class="chip" data-mint="2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo">PYUSD</button>
+        </div>
+      </form>
+      <p class="form-note" id="audit-status" role="status"></p>
+      <div id="radar-output"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Read-only until you sign. Closing an empty token account returns its rent to your wallet. Burning dust is optional and irreversible. The safety score is a heuristic, not an audit. Reclaim transactions add no protocol fee.</p>
+  </footer>
+
+  <dialog id="tx-dialog">
+    <form method="dialog" class="dialog-card">
+      <header>
+        <h2>Unsigned reclaim batch</h2>
+        <button type="submit" class="ghost icon" aria-label="Close">×</button>
+      </header>
+      <div id="tx-body"></div>
+    </form>
+  </dialog>
+
+  <dialog id="share-dialog">
+    <form method="dialog" class="dialog-card wide">
+      <header>
+        <h2>Receipt card</h2>
+        <button type="submit" class="ghost icon" aria-label="Close">×</button>
+      </header>
+      <canvas id="share-canvas" width="1200" height="630"></canvas>
+      <div class="dialog-actions">
+        <button type="button" class="primary" id="download-card">Download PNG</button>
+        <a class="ghost button-link" id="x-share" target="_blank" rel="noopener noreferrer" href="https://x.com/intent/post">Share on X</a>
+      </div>
+      <p class="fine">X cannot attach the image for you. Download the card, then add it to the post.</p>
+    </form>
+  </dialog>
+
+  <noscript>This scanner needs JavaScript to call the local API.</noscript>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -27,7 +27,7 @@ npm run dev
 The dashboard listens on [http://127.0.0.1:43123](http://127.0.0.1:43123) (`PORT` overrides the port, and the process binds `0.0.0.0`).
 
 ```bash
-npm run cli -- scan 8RrMaJXYwANd4zEskfPQuSYE35dTzaYtuwyKz3ewcZQx
+npm run cli -- scan 8deJ9xeUvXSJwicYptA9mHsU2rN2pDx37KWzkDkEXhU6
 npm run cli -- audit EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
 npm run cli -- build-tx <wallet> --json
 npm run build && npx solana-reclaim scan <wallet>
@@ -41,23 +41,24 @@ Set `SOLANA_RPC_URL` when the public endpoint rate-limits you. `SOLANA_RPC_FALLB
 
 These figures are a live read on 27 Oct 2026. Balances move, so treat them as a shape of the report, not a quote.
 
-`scan 8RrMaJXYwANd4zEskfPQuSYE35dTzaYtuwyKz3ewcZQx` (public mainnet, about 0.3s):
+`scan 8deJ9xeUvXSJwicYptA9mHsU2rN2pDx37KWzkDkEXhU6` (Cooker, public mainnet, about 0.5s). The dashboard also presets Slingoor (`5YRgrP3mjGzrzirYYN5HAQH19cTYREYwGxW6XRJQUzij`).
 
 | | |
 | --- | --- |
-| Native SOL | 1.386119165 (~$140 at ~$101/SOL) |
-| Closeable rent | 0.00302768 SOL from 2 empty Token-2022 accounts |
-| Dust | 1 account, 0.00151384 SOL rent if burned |
-| Active | 3, including a USDC account left in place |
-| Lookup tables | 16 owned, 0 past the close cooldown |
-| PumpSwap creator wSOL | 0.001495524, shown separately and not closed |
+| Native SOL | 309.376650435 (~$31,200 at ~$101/SOL) |
+| Closeable rent | 0.01665224 SOL from 11 empty Token-2022 accounts |
+| Dust | 7 accounts, 0.01061212 SOL rent if burned |
+| Active | 2713 |
+| Locked | 216 accounts, rent left in place |
+| Lookup tables | none owned by this wallet |
+| pump.fun creator vault | 0.473796831 SOL claimable, shown separately and not closed |
 | Close batches | 1 unsigned transaction, 0% protocol fee |
 
 `audit` on the same day:
 
 | Mint | Score | What stood out |
 | --- | --- | --- |
-| PYUSD | 18/100 high risk | Token-2022. Permanent delegate and a transfer hook. Top 10 holders ~85.5% of supply. |
+| WIF | 100/100 | Mint and freeze revoked. Top 10 holders ~43.5% of supply. |
 | USDC | 95/100 lower structural risk | Mint and freeze authorities are the expected issuer keys. Top 10 ~29.8%. |
 | BONK | 100/100 | Mint and freeze revoked. Top 10 ~38.5%. |
 
@@ -106,7 +107,7 @@ This is a heuristic. It is not an audit and it does not know intent.
 ```ts
 import { scanWallet, auditMint, buildUnsignedReclaimTransactions } from 'solana-reclaim'
 
-const scan = await scanWallet('8RrMaJXYwANd4zEskfPQuSYE35dTzaYtuwyKz3ewcZQx')
+const scan = await scanWallet('8deJ9xeUvXSJwicYptA9mHsU2rN2pDx37KWzkDkEXhU6')
 const audit = await auditMint('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
 
 const batch = buildUnsignedReclaimTransactions({

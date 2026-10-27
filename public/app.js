@@ -581,7 +581,7 @@ function boot() {
     link.click()
   })
   $('scan-output').append(h('div', { class: 'card empty' }, 'Paste a wallet above. The first scan only reads mainnet — it does not connect a wallet or build a transaction.'))
-  $('radar-output').append(h('div', { class: 'card empty' }, 'Paste a mint, or try USDC, BONK, or PYUSD. Authorities and extensions are read from the mint account.'))
+  $('radar-output').append(h('div', { class: 'card empty' }, 'Paste a mint, or try USDC, BONK, or WIF. Authorities and extensions are read from the mint account.'))
   if (location.hash === '#radar') setTab('radar')
   try {
     const saved = localStorage.getItem('solana-reclaim:wallet')

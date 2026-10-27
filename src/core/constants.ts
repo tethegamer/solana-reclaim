@@ -142,7 +142,8 @@ export const KNOWN_PROGRAMS: KnownProgram[] = [
 
 export const PROGRAM_BY_ID = new Map(KNOWN_PROGRAMS.map((program) => [program.id, program]))
 
-export const DEMO_WALLET = '8RrMaJXYwANd4zEskfPQuSYE35dTzaYtuwyKz3ewcZQx'
+/** Cooker, a public pump.fun wallet used as the default scan preset. */
+export const DEMO_WALLET = '8deJ9xeUvXSJwicYptA9mHsU2rN2pDx37KWzkDkEXhU6'
 
 export const SCORE_MODEL_SUMMARY =
   'The composite safety score is the average of an authority/extension score and a holder-distribution score, from 0 to 100. ' +
